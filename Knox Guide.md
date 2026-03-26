@@ -2397,3 +2397,56 @@ The **API Client Log** (under the **API CLIENT** tab) tracks the "Login History"
 - **Deactivate**: Go to **API Client**, select the client, and click **Change Status** to **Inactive**.
 - **Invalidate Token**: Click **Invalidate Token** to instantly kill any currently active sessions for that client.
 - **Delete**: Select the client and click **Delete** to remove it from the console permanently.
+
+# Knox Manage Guide: Reference Data
+
+**Reference Data** is a customization tool used to create standardized "Tags" or "Labels" for your users. It ensures that every administrator uses the same terms when describing an employee’s role, location, or department.
+
+---
+
+### 1. What it is
+
+Located under **Advanced** > **Reference Data**, this section allows you to define "Drop-down Menu" options. Instead of typing "Manager" for one person and "MGR" for another, you create a single **Reference Data** entry called "Manager" that all admins must select.
+
+Common categories include:
+
+- **Position:** Job titles (e.g., Driver, Manager, Technician).
+- **Site:** Physical locations (e.g., Warehouse A, New York Office).
+- **Security Level:** Access tiers (e.g., Level 1, Level 2).
+
+### 2. Why we use it
+
+- **Data Consistency:** It prevents spelling mistakes and messy data in your user list.
+- **Automated Profiles:** You can use these tags to create **Dynamic Groups**. For example: "Any user whose _Position_ is _Driver_ automatically gets the GPS app."
+- **Dynamic Placeholders:** You can use these tags in **Message Templates**. An email can say: _"Welcome to our ${Site} location,"_ and Knox will automatically fill in the correct office name.
+- **Reporting:** It allows you to filter reports by these categories (e.g., "Show me all devices belonging to the _Sales_ Position").
+
+### 3. Step-by-Step: How to Use it
+
+1.  Navigate to **Advanced** > **Reference Data**.
+2.  **Create a Category:** Click the **Add** button.
+3.  **Define the Data:**
+    - **Reference Item:** Choose the type (e.g., **Position**).
+    - **Reference Name:** Enter the specific label (e.g., _Warehouse Supervisor_).
+    - **Reference Code:** Enter a short ID (e.g., _SUPV_).
+4.  **Save:** Click **Save**.
+5.  **Assign to a User:**
+    - Go to **User** > **All Users**.
+    - Select a user and click **Modify**.
+    - You will now see a drop-down menu for **Position** or **Site** containing the items you just created.
+
+### 4. What happens on the Device
+
+- **Invisible Labels:** The user doesn't see these "Tags" on their phone screen.
+- **Automatic Content:** If you have an **Event Profile** linked to a specific Position, the phone's apps or settings will change automatically as soon as the user is tagged with that Reference Data in the console.
+
+### 5. How to Stop
+
+- **Modify:** You can edit a Reference Name (e.g., change "Driver" to "Delivery Associate"), and it will update for every user tagged with that item.
+- **Delete:** Select the Reference Data item and click **Delete**.
+  - _Note:_ You cannot delete a Reference Data item if it is currently assigned to a user. You must remove the tag from all users first.
+- **Clear Fields:** To stop using a tag for a specific person, go to their user profile and change the drop-down back to **"Select"** (empty).
+
+---
+
+<!-- **What is the next specific option name on your list?** (e.g., **Device Log**, **Audit Log**, or **Alert**?) -->
