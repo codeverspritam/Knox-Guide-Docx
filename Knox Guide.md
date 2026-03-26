@@ -2211,3 +2211,109 @@ Located under **Advanced** > **Dashboard Management**, this tool lets you create
 ---
 
 <!-- **What is the next specific option name on your list?** (e.g., **Device Log**, **Audit Log**, or **Alert**?) -->
+
+# Knox Manage Guide: Advanced Certificate Management
+
+This guide covers the **Certificate** infrastructure within Knox Manage. Certificates are the digital "ID cards" that allow devices to connect to secure company Wi-Fi, VPNs, and Email servers without users needing to type in passwords manually.
+
+---
+
+## 1. External Certificate
+
+### A. What it is
+
+An **External Certificate** is a pre-existing digital file (like `.cer` or `.p12`) that you upload directly into Knox Manage. It is not created by the console; it is "imported" from your network team.
+
+### B. Why we use it
+
+- **Trust:** To tell the phone to "Trust" your company's private Wi-Fi server.
+- **Authentication:** To give the phone a specific key so it can log into a VPN or Exchange email.
+- **iOS Supervision:** For Apple devices, a "Supervision Certificate" allows a specific Mac computer to manage the iPhone via a USB cable.
+
+### C. Step-by-Step: How to Use it
+
+1.  Go to **Advanced** > **Certificate** > **External Certificate**.
+2.  Click **Add**.
+3.  **Purpose:** Select where this will be used (Wi-Fi, VPN, or Exchange).
+4.  **Type:** Choose **Root** (for the server) or **User** (for the person).
+5.  **Upload:** Select your certificate file from your PC.
+6.  **Save:** Once saved, you must go to your **Profile** and attach this certificate to the Wi-Fi or VPN setting.
+
+### D. Device Result
+
+The certificate is silently installed into the phone's "Credential Storage." When the user tries to connect to the office Wi-Fi, the phone "shows" this certificate to the router, and access is granted instantly.
+
+### E. How to Stop
+
+Select the certificate in the list and click **Delete**. It will be removed from the console and pulled off all assigned devices during their next sync.
+
+---
+
+## 2. Certificate Authority (CA)
+
+### A. What it is
+
+The **Certificate Authority (CA)** setting is a "Bridge." It connects Knox Manage to your company's internal Certificate Server (like Microsoft ADCS or SCEP).
+
+### B. Why we use it
+
+- **Automation:** Instead of manually uploading 500 files for 500 users, Knox Manage "talks" to your server to generate them automatically.
+- **Scale:** Essential for large companies where manual certificate handling is impossible.
+
+### C. Step-by-Step: How to Use it
+
+1.  Go to **Advanced** > **Certificate** > **Certificate Authority (CA)**.
+2.  Click **Add**.
+3.  **CA Type:** Select your server type (e.g., **Microsoft ADCS** or **SCEP**).
+4.  **URL:** Enter the web address of your certificate server.
+5.  **Test:** Click **Connection Test**. You **must** see a "Success" message before saving.
+
+---
+
+## 3. Certificate Template
+
+### A. What it is
+
+A **Template** is a set of "Instructions" for the CA. It tells the server exactly what kind of certificate to make for the user.
+
+### B. Why we use it
+
+- **Personalization:** You can set the "Subject Name" to `{User Email}`. This ensures every employee gets a certificate with _their_ own name on it automatically.
+- **Standardization:** Ensures all certificates have the correct security strength (bits) and expiration length.
+
+### C. Step-by-Step: How to Use it
+
+1.  Go to **Advanced** > **Certificate** > **Certificate Template**.
+2.  Click **Add**.
+3.  **Select CA:** Pick the CA server you linked in the previous step.
+4.  **Subject Name:** Use **Lookup Items** to set the name (e.g., `CN={User Name}`).
+5.  **Save:** Now this template is ready to be used in a Profile.
+
+---
+
+## 4. Certificate Issuing History
+
+### A. What it is
+
+This is the **Audit Log** for every certificate the system has ever handed out.
+
+### B. Why we use it
+
+- **Tracking:** To see which devices successfully received their "ID card" and which ones failed.
+- **Expiry Monitoring:** To check when certificates will expire so you can renew them before the Wi-Fi stops working for employees.
+- **Troubleshooting:** If a user can't connect to VPN, you check here to see if their certificate was actually "Generated."
+
+### C. Step-by-Step: How to Use it
+
+1.  Go to **Advanced** > **Certificate** > **Certificates Issuing History**.
+2.  **Search:** Filter by **Device Name** or **User ID**.
+3.  **Status:** Look for **"Generated"** (Success) or **"Revoked/Deleted"** (Removed).
+4.  **Detail:** Click on a row to see the exact **Issue Date** and **Expire Date**.
+
+### D. How to Stop
+
+You cannot "stop" the history from recording, but you can select old records and click **Delete** to clean up the list. Note that deleting a record for an iOS device may actually trigger the removal of that certificate from the physical device.
+
+---
+
+<!-- **What is the next specific option name on your list?** (e.g., **Reference Data**, **External Certificate**, or **Device Log**?) -->
