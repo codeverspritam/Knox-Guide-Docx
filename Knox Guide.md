@@ -2317,3 +2317,83 @@ You cannot "stop" the history from recording, but you can select old records and
 ---
 
 <!-- **What is the next specific option name on your list?** (e.g., **Reference Data**, **External Certificate**, or **Device Log**?) -->
+
+# Knox Manage Guide: EMM API Settings
+
+The **EMM API** menu (under **Advanced**) is used to integrate Knox Manage with third-party software, such as security platforms or custom company portals, through the **Knox Manage OpenAPI**.
+
+---
+
+## 1. API Client
+
+### A. What it is
+
+The **API Client** is the "User Account" for a piece of software. Instead of a person logging in, an external system uses these credentials to talk to Knox Manage.
+
+### B. Why we use it
+
+- **Third-Party Integration**: To connect Knox Manage with services like **Check Point Harmony Mobile** or **Cisco Umbrella**.
+- **Automation**: To allow custom scripts to automatically locate devices, manage users, or send commands without manual admin work.
+- **Secure Access**: It provides an **OAuth 2.0** authentication method, generating a unique **Client ID** and **Password** (Client Secret) for the external app.
+
+### C. Step-by-Step: How to Use it
+
+1.  Navigate to **Advanced** > **EMM API** > **API Client**.
+2.  **Add a Client**: Click the **Add** button.
+3.  **Configure Details**:
+    - **Client ID**: Assign a unique name (under 50 characters).
+    - **Password**: Enter a secure password (8–30 characters).
+    - **Token Validity**: Set how long an authentication token stays active (e.g., 86400 seconds for 24 hours).
+    - **Permission Level**: Choose **Management** (can change things) or **Read-Only** (can only view data).
+4.  **Save**: Click **Save**. The status will show as **Active**.
+    - _Note_: Only **five** API clients can be active at one time.
+
+### D. Device & Console Result
+
+- **External Access**: The third-party software can now use the Client ID and Password to generate a "Bearer Token" and start managing your fleet.
+- **No User Impact**: The device user sees no changes, as the API works entirely in the background.
+
+---
+
+## 2. API Log (API Integration Log)
+
+### A. What it is
+
+The **API Log** (often under the **API INTEGRATION** tab) is the "Phone Bill" for your API calls. It records every time an external system successfully or unsuccessfully "talks" to Knox Manage.
+
+### B. Why we use it
+
+- **Verification**: To confirm that your third-party integration is actually sending commands to the console.
+- **Troubleshooting**: If an integration stops working, you check here for **Error Codes** to see why (e.g., "Invalid Token" or "Permission Denied").
+
+### C. Step-by-Step: How to Use it
+
+1.  Navigate to **Advanced** > **EMM API** > **API Log**.
+2.  **Search**: Filter by **Client ID** or **Date Range** to find specific activities.
+3.  **Check Result**: Look for **Success** or **Failure** in the result column.
+
+---
+
+## 3. API Client Log
+
+### A. What it is
+
+The **API Client Log** (under the **API CLIENT** tab) tracks the "Login History" of your API clients. It focuses on the authentication attempts themselves rather than the individual commands being sent.
+
+### B. Why we use it
+
+- **Security Auditing**: To see which external apps are logging in and if there are any suspicious failed login attempts.
+- **Authentication Debugging**: If an external app can't connect, this log tells you if it's because of a **wrong password** or an **inactive status**.
+
+### C. Step-by-Step: How to Use it
+
+1.  Navigate to the **API CLIENT** tab in the log section.
+2.  **Filter**: Search by **Client ID**, **API Name**, or **Time**.
+3.  **View Details**: Click **View Details** to see specific error messages for failed logins.
+4.  **Export**: Click **DOWNLOAD AS CSV** if you need to share the login history with your developers or security team.
+
+### How to Stop
+
+- **Deactivate**: Go to **API Client**, select the client, and click **Change Status** to **Inactive**.
+- **Invalidate Token**: Click **Invalidate Token** to instantly kill any currently active sessions for that client.
+- **Delete**: Select the client and click **Delete** to remove it from the console permanently.
